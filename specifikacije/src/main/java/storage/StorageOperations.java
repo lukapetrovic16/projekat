@@ -2,13 +2,22 @@ package storage;
 /**
  * 
  * @author AMD
- *	Specifikacije za osnovne operacije sa skladistem
+ *	Specifikacije za najvaznije operacije sa skladistem
  */
 public interface StorageOperations {
 	/**
 	 * 
-	 * @param oldPath Putanja do stare lokacije skladista
-	 * @param newPath Putanja do nove lokacije skladista
+	 * @param path Putanja do skladista
 	 */
-	void moveStorage (String oldPath, String newPath);
+	void createStorage (String path);
+	/**
+	 * 
+	 * @param path Putanja do skladista
+	 */
+	void deleteStorage (String path);
+	/**
+	 * 
+	 * @param path Putanja do skladista
+	 */
+	void updateStorage (String path);
 }

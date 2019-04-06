@@ -4,7 +4,7 @@ package storage;
  * @author AMD
  *	Specifikacija za osnovne funkcije manipulisanja skladista
  */
-public interface StorageManipulation {
+public interface StorageDefinition {
 	/**
 	 * 
 	 * @param oldLocation Stara lokacija skladista
