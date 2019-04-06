@@ -18,8 +18,8 @@ public interface FileOperations {
 	
 	/**
 	 * 
-	 * @param file Fajl koji zelimo da skinemo
 	 * @param path Putanja na kojoj zelimo da se fajl skine
+	 * @param storagePath Putanja na kojoj se nalazi fajl koji hocemo da skinemo
 	 */
-	void downloadFile (File file, String path);
+	void downloadFile (String path, String storagePath);
 }
