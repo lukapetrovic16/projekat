@@ -3,10 +3,10 @@ package file;
 import java.io.File;
 /**
  * 
- * @author AMD
- * Implementacija {@link FileOperations} interfejsa. Koristice se dropbox kao remote storage.
+ * @author AMD Implementacija {@link FileOperations} interfejsa. Koristice se dropbox kao remote storage.
+ * 
  */
-public class FileOperationImplementacija implements FileOperations{
+public class FileOperationImplementacija implements FileOperations {
 	/** Funkcija za postavljanje fajla na dropbox
 	 * @param file Naziv fajla koji postavljamo na dropbox
 	 * @param path Putanja do fajla koji se nalazi u dropbox-u
