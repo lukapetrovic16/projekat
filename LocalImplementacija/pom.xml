@@ -10,13 +10,4 @@
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>
-  <dependencyManagement>
-  	<dependencies>
-  		<dependency>
-  			<groupId>raf.projekat</groupId>
-  			<artifactId>specifikacije</artifactId>
-  			<version>0.0.1-SNAPSHOT</version>
-  		</dependency>
-  	</dependencies>
-  </dependencyManagement>
 </project>
