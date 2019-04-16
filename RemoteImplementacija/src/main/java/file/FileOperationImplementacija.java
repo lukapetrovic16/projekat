@@ -14,7 +14,6 @@ public class FileOperationImplementacija implements FileOperations {
 	public void upoadFile(File file, String path) {
 		
 	}
-	
 	/**
 	 * Funkcija za skidanje fajlova sa dropboxa
 	 * @param path Putanja do fajla koji zelimo da skinemo sa skladista
