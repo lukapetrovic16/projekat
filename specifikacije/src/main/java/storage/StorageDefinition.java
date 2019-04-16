@@ -1,8 +1,8 @@
 package storage;
 /**
  * 
- * @author AMD Specifikacija za osnovne funkcije manipulisanja skladista
- *	
+ * @author AMD 
+ * Specifikacija za osnovne funkcije manipulisanja skladista
  */
 public interface StorageDefinition {
 	/**
