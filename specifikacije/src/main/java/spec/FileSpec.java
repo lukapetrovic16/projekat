@@ -3,7 +3,11 @@ package spec;
 import java.io.File;
 
 public interface FileSpec {
+	/**
+	 * Ubaciti terminate, initialize, save, find(search) 
+	 */
 
+	
 		/**
 		 * Omogucava postavljanje zadatog fajla na zadatu destinaciju. 
 		 * Exceptions:
