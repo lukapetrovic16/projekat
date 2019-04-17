@@ -1,6 +1,9 @@
 package spec;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.NoSuchFileException;
 
 public interface FileSpec {
 	/**
@@ -10,6 +13,7 @@ public interface FileSpec {
 	
 		/**
 		 * Omogucava postavljanje zadatog fajla na zadatu destinaciju. 
+		 * @category Remote storage
 		 * Exceptions:
 		 * 
 		 * @param file Fajl koji zelimo da postavimo
@@ -18,6 +22,7 @@ public interface FileSpec {
 		void uploadFile (String file, String path);
 		/**
 		 * Omogucava postavljanje zadatih fajlova na zadatu destinaciju. 
+		 * @category Remote storage
 		 * Exceptions:
 		 * 
 		 * @param files Fajlovi koji zelimo da postavimo
@@ -26,6 +31,7 @@ public interface FileSpec {
 		void uploadMultiFiles (String[] files, String path);
 		/**
 		 * Omogucava skidanje zadatog fajla na zadatu destinaciju. 
+		 * @category Remote storage
 		 * Exceptions:
 		 * 
 		 * @param path Putanja na kojoj zelimo da se skine fajl
@@ -34,6 +40,7 @@ public interface FileSpec {
 		void downloadFile (String path, String storagePath);
 		/**
 		 * Omogucava skidanje zadatih fajlova na zadatu destinaciju. 
+		 * @category Remote storage
 		 * Exceptions:
 		 * 
 		 * @param path Putanja na kojoj zelimo da se skinu fajlovi
@@ -42,27 +49,40 @@ public interface FileSpec {
 		void downloadMultiFile (String path, String[] storagePath);
 		/**
 		 * Omogucava brisanje zadatog fajla.
+		 * @category Local & Remote storage
 		 * Exceptions:
+		 * @exception NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da izbrisemo trenutno ne postoji.
+		 * @exception DirectoryNotEmptyException Izbacuje exception ukoliko direkcija koju zelimo da izbrisemo nije prazna.
+		 * @exception IOException Hvata exceptione u vezi I/O.
 		 * 
 		 * @param path Putanja na kojoj se nalazi fajl koji hocemo da izbrisemo
 		 */
 		void deleteFile (String path);
 		/**
 		 * Omogucava brisanje zadatih fajlova.
+		 * @category Local & Remote storage
 		 * Exceptions:
+		 * @exception NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da izbrisemo trenutno ne postoji.
+		 * @exception DirectoryNotEmptyException Izbacuje exception ukoliko direkcija koju zelimo da izbrisemo nije prazna.
+		 * @exception IOException Hvata exceptione u vezi I/O.
 		 * 
 		 * @param path Putanje na kojim se nalaze fajlovi koje hocemo da izbrisemo
 		 */
 		void deleteMultiFiles (String[] path);
 		/**
 		 * Omogucava brisanje svih fajlova na nekom direktorijumu.
-		 * Exceptions:
+		 * @category Local & Remote storage
+		 * Exceptions:* 
+		 * @exception NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da izbrisemo trenutno ne postoji.
+		 * @exception DirectoryNotEmptyException Izbacuje exception ukoliko direkcija koju zelimo da izbrisemo nije prazna.
+		 * @exception IOException Hvata exceptione u vezi I/O.
 		 * 
 		 * @param path Putanje na kojim se nalaze fajlovi koje hocemo da izbrisemo
 		 */
 		void deleteAllFiles (String path);
 		/**
 		 * Omogucava premestanje fajla na drugu putanju.
+		 * @category Local & Remote storage
 		 * Exceptions:
 		 * 
 		 * @param path Lokacija fajla koji pomeramo
@@ -70,6 +90,7 @@ public interface FileSpec {
 		 */
 		void moveFile (String path, String newLocation);
 		/**
+		 * @category Local & Remote storage
 		 * Omogucava promenu naziva fajla.
 		 * Exceptions:
 		 * 
@@ -80,6 +101,7 @@ public interface FileSpec {
 		void renameFile (String path, String newName);
 		/**
 		 * Omogucava premestanje skladista sa jedne na drugu destinaciju.
+		 * @category Local & Remote storage
 		 * Exceptions:
 		 * 
 		 * @param oldLocation Stara lokacija skladista
@@ -89,6 +111,7 @@ public interface FileSpec {
 		void moveStorage (String oldLocation, String newLocation);
 		/**
 		 * Omogucava kreiranje novog skladista na datom direktorijumu.
+		 * @category Local & Remote storage
 		 * Exceptions:
 		 * 
 		 * @param path Putanja do novog skladista
@@ -96,6 +119,7 @@ public interface FileSpec {
 		void createStorage (String path);
 		/**
 		 * Omogucava brisanje postojeceg skladista na datom direktorijumu.
+		 * @category Local & Remote storage
 		 * Exceptions: 
 		 * 
 		 * @param path Putanja do skladista koje zelimo da izbrisemo
@@ -103,6 +127,7 @@ public interface FileSpec {
 		void deleteStorage (String path);
 		/**
 		 * Omogucava osvezavanje podataka skladista na datom direktorijumu.
+		 * @category Local & Remote storage
 		 * Exceptions:
 		 * 
 		 * @param path Putanja do skladista kog refreshujemo
@@ -110,6 +135,7 @@ public interface FileSpec {
 		void updateStorage (String path);
 		/**
 		 * Omogucava promenu naziva novog skladista na datom direktorijumu.
+		 * @category Local & Remote storage
 		 * Exceptions:
 		 * 
 		 * @param path Putanja do skladista kome menjamo naziv
@@ -118,6 +144,7 @@ public interface FileSpec {
 		void renameStorage (String path, String newName);
 		/**
 		 * Omogucava arhiviranje fajlova u .zip formatu.
+		 * @category Local & Remote storage
 		 * Exceptions:
 		 * 
 		 * @param path Putanja ka fajlu koji zipujemo
@@ -126,6 +153,7 @@ public interface FileSpec {
 		void zipFile (String path, String newLocation);
 		/**
 		 * Omogucava arhiviranje vise fajlova i foldera u .zip formatu.
+		 * @category Local & Remote storage
 		 * Exceptions:
 		 * 
 		 * @param path Putanja ka fajlu u koji zipujemo
