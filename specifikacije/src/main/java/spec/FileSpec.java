@@ -1,165 +1,159 @@
 package spec;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
-import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.NoSuchFileException;
 
 public interface FileSpec {
 	/**
-	 * Ubaciti terminate, initialize, save, find(search) 
+	 * Ubaciti find(search) , za exclude ekstenzija,  
+	 * metode moraju biti univerzalne , da se koriste i za LOKAL i za REMOTE.
 	 */
-
-	
+		/**
+		 * Omogucava pokretanje programa.
+		 */
+		void initialize();
+		/**
+		 * Omogucava gasenje programa.
+		 */
+		void terminate();
 		/**
 		 * Omogucava postavljanje zadatog fajla na zadatu destinaciju. 
-		 * @category Remote storage
-		 * Exceptions:
 		 * 
-		 * @param file Fajl koji zelimo da postavimo
-		 * @param path Putanja na koju zelimo da postavimo fajl
+		 * 
+		 * @param path Fajl koji zelimo da postavimo
+		 * @param newLocation Putanja na koju zelimo da postavimo fajl
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+		 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
 		 */
-		void uploadFile (String file, String path);
+		void uploadFile (String path, String newLocation) throws NoSuchFileException, IOException;
+		//void uploadFile (String file, String path, String name, String extension);  // polimorfizam   overload, override
 		/**
 		 * Omogucava postavljanje zadatih fajlova na zadatu destinaciju. 
-		 * @category Remote storage
-		 * Exceptions:
 		 * 
-		 * @param files Fajlovi koji zelimo da postavimo
-		 * @param path Putanja na koju zelimo da postavimo fajlove
+		 * @param files Fajlovi koje zelimo da postavimo
+		 * @param newLocation Putanja na koju zelimo da postavimo fajlove
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+		 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
 		 */
-		void uploadMultiFiles (String[] files, String path);
+		void uploadMultiFiles (String[] files, String newLocation) throws NoSuchFileException, IOException;
 		/**
 		 * Omogucava skidanje zadatog fajla na zadatu destinaciju. 
-		 * @category Remote storage
-		 * Exceptions:
 		 * 
 		 * @param path Putanja na kojoj zelimo da se skine fajl
 		 * @param storagePath Putanja na kojoj se nalazi fajl koji hocemo da skinemo
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+		 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
 		 */
-		void downloadFile (String path, String storagePath);
+		void downloadFile (String path, String storagePath) throws NoSuchFileException, IOException;
 		/**
 		 * Omogucava skidanje zadatih fajlova na zadatu destinaciju. 
-		 * @category Remote storage
-		 * Exceptions:
 		 * 
 		 * @param path Putanja na kojoj zelimo da se skinu fajlovi
 		 * @param storagePath Putanje na kojima se nalaze fajlovi koje hocemo da skinemo
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+		 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
 		 */
-		void downloadMultiFile (String path, String[] storagePath);
+		void downloadMultiFile (String path, String[] storagePath) throws NoSuchFileException, FileNotFoundException, IOException;
 		/**
 		 * Omogucava brisanje zadatog fajla.
-		 * @category Local & Remote storage
-		 * Exceptions:
-		 * @exception NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da izbrisemo trenutno ne postoji.
-		 * @exception DirectoryNotEmptyException Izbacuje exception ukoliko direkcija koju zelimo da izbrisemo nije prazna.
-		 * @exception IOException Hvata exceptione u vezi I/O.
 		 * 
 		 * @param path Putanja na kojoj se nalazi fajl koji hocemo da izbrisemo
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+		 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
 		 */
-		void deleteFile (String path);
+		void deleteFile (String path) throws NoSuchFileException, FileNotFoundException, IOException;
 		/**
 		 * Omogucava brisanje zadatih fajlova.
-		 * @category Local & Remote storage
-		 * Exceptions:
-		 * @exception NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da izbrisemo trenutno ne postoji.
-		 * @exception DirectoryNotEmptyException Izbacuje exception ukoliko direkcija koju zelimo da izbrisemo nije prazna.
-		 * @exception IOException Hvata exceptione u vezi I/O.
 		 * 
 		 * @param path Putanje na kojim se nalaze fajlovi koje hocemo da izbrisemo
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+		 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
 		 */
-		void deleteMultiFiles (String[] path);
+		void deleteMultiFiles (String[] path) throws NoSuchFileException, FileNotFoundException, IOException;
 		/**
-		 * Omogucava brisanje svih fajlova na nekom direktorijumu.
-		 * @category Local & Remote storage
-		 * Exceptions:* 
-		 * @exception NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da izbrisemo trenutno ne postoji.
-		 * @exception DirectoryNotEmptyException Izbacuje exception ukoliko direkcija koju zelimo da izbrisemo nije prazna.
-		 * @exception IOException Hvata exceptione u vezi I/O.
-		 * 
-		 * @param path Putanje na kojim se nalaze fajlovi koje hocemo da izbrisemo
-		 */
-		void deleteAllFiles (String path);
-		/**
-		 * Omogucava premestanje fajla na drugu putanju.
-		 * @category Local & Remote storage
-		 * Exceptions:
-		 * 
-		 * @param path Lokacija fajla koji pomeramo
-		 * @param newLocation Nova lokacija fajla
-		 */
-		void moveFile (String path, String newLocation);
-		/**
-		 * @category Local & Remote storage
 		 * Omogucava promenu naziva fajla.
-		 * Exceptions:
 		 * 
 		 * @param path Putanja do fajla kome menjamo naziv
 		 * @param newName Novi naziv fajla
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+		 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
 		 * 
 		 */
-		void renameFile (String path, String newName);
+		void renameFile (String path, String newName) throws NoSuchFileException, FileNotFoundException, IOException;
 		/**
-		 * Omogucava premestanje skladista sa jedne na drugu destinaciju.
-		 * @category Local & Remote storage
-		 * Exceptions:
-		 * 
-		 * @param oldLocation Stara lokacija skladista
-		 * @param newLocation Nova lokacija skladista
-		 */
-		
-		void moveStorage (String oldLocation, String newLocation);
-		/**
-		 * Omogucava kreiranje novog skladista na datom direktorijumu.
-		 * @category Local & Remote storage
-		 * Exceptions:
+		 * Omogucava kreiranje novog skladista sa zadatim imenom na unesenom direktorijumu.
 		 * 
 		 * @param path Putanja do novog skladista
-		 */
-		void createStorage (String path);
-		/**
-		 * Omogucava brisanje postojeceg skladista na datom direktorijumu.
-		 * @category Local & Remote storage
-		 * Exceptions: 
+		 * @param name Naziv novog skladista
 		 * 
-		 * @param path Putanja do skladista koje zelimo da izbrisemo
 		 */
-		void deleteStorage (String path);
+		void createStorage (String path, String name);
 		/**
-		 * Omogucava osvezavanje podataka skladista na datom direktorijumu.
-		 * @category Local & Remote storage
-		 * Exceptions:
+		 * Omogucava kreiranje novog fajla sa zadatim imenom na unesenom direktorijumu.
 		 * 
-		 * @param path Putanja do skladista kog refreshujemo
+		 * @param path Putanja do direktorijuma gde pravimo fajl
+		 * @param name Naziv novog fajla
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
 		 */
-		void updateStorage (String path);
+		void createFile (String path, String name) throws FileNotFoundException, IOException;
 		/**
-		 * Omogucava promenu naziva novog skladista na datom direktorijumu.
-		 * @category Local & Remote storage
-		 * Exceptions:
+		 * Omogucava pronalazenje fajla sa zadatim imenom.
 		 * 
-		 * @param path Putanja do skladista kome menjamo naziv
-		 * @param newName Novi naziv skladista
+		 * @param path Path na kome ce da pretrazuje
+		 * @param filter Fajl koji se trazi
 		 */
-		void renameStorage (String path, String newName);
+		void find(String path, FilenameFilter filter);
 		/**
-		 * Omogucava arhiviranje fajlova u .zip formatu.
-		 * @category Local & Remote storage
-		 * Exceptions:
+		 * Zabranjuje koriscenje fajlova sa zadatom ekstenzijom.
 		 * 
-		 * @param path Putanja ka fajlu koji zipujemo
-		 * @param newLocation Putanja ka fajlu u koji zipujemo
+		 * @param extension Zadata ekstenzija koja treba biti zabranjena
 		 */
-		void zipFile (String path, String newLocation);
+		void excludeExtension(String extension);
 		/**
-		 * Omogucava arhiviranje vise fajlova i foldera u .zip formatu.
-		 * @category Local & Remote storage
-		 * Exceptions:
+		 * Omogucava arhiviranje jednog fajla u .zip format.
 		 * 
-		 * @param path Putanja ka fajlu u koji zipujemo
+		 * @param file Putanja ka fajlu koji zipujemo
+		 * @param newLocation Putanja ka direktorijumu u koji zipujemo sa sve nazivom zipa.
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+		 */
+		void zipFile (File file, File newLocation) throws IOException;
+		/**
+		 * Omogucava arhiviranje vise fajlova u .zip format.
+		 * 
 		 * @param sourceFile Svi fajlovi koji se zipuju
+		 * @param newLocation Putanja ka direktorijumu u koji zipujemo sa sve nazivom zipa.
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
 		 */
-		void zipMultiFiles (String path, String[] sourceFile);
-
-
+		void zipMultiFiles (File[] sourceFile, File newLocation) throws FileNotFoundException, IOException;
+		/**
+		 * Omogucava arhiviranje direktorijuma u .zip format.
+		 * 
+		 * @param file Direktorijum koji se zipuje
+		 * @param newLocation Putanja ka direktorijumu u koji zipujemo sa sve nazivom zipa.
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+		 */
+		void zipDirectory(File file, File newLocation) throws FileNotFoundException, IOException;
+		/**
+		 * Omogucava ekstraktovanje fajlova iz .zip formata.
+		 * 
+		 * @param file Zip fajl koji se unzipuje.
+		 * @param newLocation Putanja ka direktorijumu u koji unzipujemo
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+		 */
+		void unZip(File file, File newLocation) throws FileNotFoundException, IOException;
 }
