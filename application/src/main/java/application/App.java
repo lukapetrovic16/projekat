@@ -7,18 +7,14 @@ import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Scanner;
-
 import file.FileLocal;
 import spec.FileSpec;
 import spec.FileSpecManager;
 
-public class App{
+public class App {
 		// ????
 	public static final String BASE_DIR = (System.getProperty("user.home") + 
-			System.getProperty("file.separator") +
-			"Desktop" + 
-			System.getProperty("file.separator") +
-			"Test");
+			System.getProperty("file.separator") + "Desktop" +  System.getProperty("file.separator") + "Test");
 	public static final String TEST_DIR = "src/test/java";
 	public static String imp;
 	private static String outString;
@@ -64,11 +60,12 @@ public class App{
 				*/
 				
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
+				// TODO: handle exception
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// TODO: handle exception
 				e.printStackTrace();
+			
 			}
 			
 		} catch (ClassNotFoundException e1) {

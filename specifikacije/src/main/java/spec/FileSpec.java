@@ -17,11 +17,11 @@ public interface FileSpec {
 		 */
 		void terminate();
 		/**
-		 * Omogucava postavljanje zadatog fajla na zadatu destinaciju. 
+		 * Omogucava postavljanje zadatog fajla na zadatu destinaciju.
 		 * 
 		 * 
 		 * @param path Fajl koji zelimo da postavimo
-		 * @param newLocation Putanja na koju zelimo da postavimo fajl
+		 * @param newLocation Putanja u skladistu na koju zelimo da postavimo fajl
 		 * @throws IOException Hvata exceptione u vezi I/O.
 		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
 		 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
