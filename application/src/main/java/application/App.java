@@ -11,12 +11,33 @@ import file.FileLocal;
 import spec.FileSpec;
 import spec.FileSpecManager;
 
+
 public class App {
 		// ????
+
+/**
+ * App klasa je nasa glavna klasa
+ * Uzima iz fajla configuration sa podacima o speficikaciji
+ * i sadrzi test primer.
+ */
+	
 	public static final String BASE_DIR = (System.getProperty("user.home") + 
-			System.getProperty("file.separator") + "Desktop" +  System.getProperty("file.separator") + "Test");
+			System.getProperty("file.separator") +
+			"Desktop" + 
+			System.getProperty("file.separator") +
+			"Test");
+	public static final String CONFIG_DIR = System.getProperty("user.home")+
+			System.getProperty("file.separator") +
+			"git" + 
+			System.getProperty("file.separator") +
+			"projekat"+
+			System.getProperty("file.separator") +
+			"application" + 
+			System.getProperty("file.separator") +
+			"configuration.txt";
+
 	public static final String TEST_DIR = "src/test/java";
-	public static String imp;
+	public static String imp; //= FileLocal.class.getName();
 	private static String outString;
 	
 	public static void main(String[] args) {
@@ -32,7 +53,7 @@ public class App {
 		}
 		try {
 			Class.forName(imp);
-			FileSpec fs = FileSpecManager.vracaSpec(FileLocal.class.getName());
+			FileSpec fs = FileSpecManager.vracaSpec(imp);
 			
 			try {
 				
@@ -102,7 +123,8 @@ public class App {
 	}
 	
 	private static void citac() throws FileNotFoundException {
-		Scanner in = new Scanner(new FileReader("configuration.txt"));
+		
+		Scanner in = new Scanner(new FileReader(CONFIG_DIR));
 		StringBuilder sb = new StringBuilder();
 		//while(in.hasNext()) { // uzima samo prvu liniju (treba da bude file.FileLocal ili file.FileRemote)
 		    sb.append(in.next());
