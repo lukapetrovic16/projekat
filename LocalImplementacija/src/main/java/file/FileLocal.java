@@ -24,7 +24,7 @@ import spec.FileSpecManager;
  * 
  *
  */
-public class FileLocal implements FileSpec{
+public class FileLocal implements FileSpec {
 	/**
 	 * 
 	 */
