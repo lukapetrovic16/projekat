@@ -12,8 +12,11 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import javax.naming.InitialContext;
+
 import org.apache.commons.io.FileUtils;
 import spec.FileSpec;
+import spec.FileSpecManager;
 
 
 /**
@@ -24,14 +27,46 @@ import spec.FileSpec;
  *
  */
 public class FileLocal implements FileSpec{
+	
+	public static final String BASE_DIR = (System.getProperty("user.home") + 
+			System.getProperty("file.separator") +
+			"Desktop" + 
+			System.getProperty("file.separator") +
+			"Test");
+	private static FileLocal init;
 
-
-	public void initialize() {
-		
+	static {
+		FileSpecManager.ubaciSpec(new FileLocal());
+		/*
+		try {
+			init = new FileLocal();
+			init.initialize();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}	*/	
+	}
+	
+	public void initialize(){
+		/*try {
+			pokreniTest();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 	}
 	
 	public void terminate() {
-		
+		/*if(init != null) {
+			init = null;
+		}*/
+	}
+	
+	private void pokreniTest() throws FileNotFoundException, IOException {
+		createFile(BASE_DIR, "t1.txt");
+		System.out.println("Uspesan test.");
 	}
 	
 	public void uploadFile(String path, String newLocation) throws NoSuchFileException, FileNotFoundException, IOException {
@@ -48,6 +83,7 @@ public class FileLocal implements FileSpec{
 					true);
 		}else 
 			throw new IllegalArgumentException();
+		System.out.println("Upload file successful.");
 	}
 
 	public void uploadMultiFiles(String[] files, String newLocation) throws NoSuchFileException, FileNotFoundException, IOException {
@@ -62,6 +98,7 @@ public class FileLocal implements FileSpec{
 			}else 
 				throw new IllegalArgumentException();
 		}
+		System.out.println("Upload files successful.");
 	}
 
 	public void downloadFile(String path, String storagePath) throws NoSuchFileException, FileNotFoundException, IOException {
@@ -70,6 +107,7 @@ public class FileLocal implements FileSpec{
 				FileUtils.getFile(storagePath), 
 				FileUtils.getFile(path),
 				true);
+		System.out.println("Download file successful.");
 	}
 
 	public void downloadMultiFile(String path, String[] storagePath) throws NoSuchFileException, FileNotFoundException, IOException {
@@ -80,11 +118,13 @@ public class FileLocal implements FileSpec{
 					FileUtils.getFile(path),
 					true);
 		}
+		System.out.println("Download files successful.");
 	}
 	
 	public void deleteFile(String path) throws NoSuchFileException, FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
-			new File(path).delete();
+		new File(path).delete();
+		System.out.println("Delete file successful.");
 	}
 
 	public void deleteMultiFiles(String[] path) throws NoSuchFileException, FileNotFoundException, IOException {
@@ -94,8 +134,9 @@ public class FileLocal implements FileSpec{
 		 * Ima iste exceptione kao i deleteFile
 		 */
 		for(String file : path) {
-			new File(file).delete();
+			new File(file).delete();	
 		}
+		System.out.println("Delete files successful.");
 	}
 	
 	public void renameFile(String path, String newName) throws NoSuchFileException, FileNotFoundException, IOException {
@@ -103,6 +144,7 @@ public class FileLocal implements FileSpec{
 				FileUtils.getFile(path), 
 				FileUtils.getFile(path.substring(0, path.lastIndexOf("/")) + newName),
 				true);
+		System.out.println("Rename file successful.");
 	}
 	
 	public void createStorage(String path, String name) {
@@ -110,13 +152,16 @@ public class FileLocal implements FileSpec{
 		// Kreira novi folder sa datim imenom na datoj putanji.
 		File newFolder = new File(path, name);
 		newFolder.mkdir();  // mkdir ili mkdirs, not sure yet koji zelim
+		if(newFolder.isDirectory()) {
+			System.out.println("Create storage successful.");
+		}
 	}
 	
 	public void createFile(String path, String name) throws FileNotFoundException, IOException {
 		File newFile = new File(path, name);
 		newFile.createNewFile();
 		if(newFile.isFile()){
-			System.out.println("uspelo");
+			System.out.println("Create file successful.");
 		}
 	}
 	
@@ -124,12 +169,13 @@ public class FileLocal implements FileSpec{
 		File directory = new File(path);
 		if(directory.isDirectory()) {
 			try {
-				directory.list(filter);
+				directory.listFiles(filter);
 			} catch (NullPointerException e) {
 				// TODO: handle exception
 				System.out.println("Nije pronadjen zadati fajl.");
 			}
 		}
+		System.out.println("Find file successful.");
 	}
 	
 	ArrayList<String> bannedExtensions = new ArrayList<String>();
@@ -137,6 +183,7 @@ public class FileLocal implements FileSpec{
 		if(!bannedExtensions.contains(extension)) {
 			bannedExtensions.add(extension);
 		}
+		System.out.println("Banned extensions successful.");
 	}
 	
 	public void zipFile(File file, File newLocation) throws FileNotFoundException, IOException {
@@ -154,6 +201,7 @@ public class FileLocal implements FileSpec{
         fileInputStream.close();
         zipOutputStream.closeEntry();
         zipOutputStream.close();
+        System.out.println("Zip file successful.");
 	}
 
 	public void zipMultiFiles(File[] sourceFile, File newLocation) throws FileNotFoundException, IOException{
@@ -174,6 +222,7 @@ public class FileLocal implements FileSpec{
         }
         zipOutputStream.closeEntry();
         zipOutputStream.close();
+        System.out.println("Zip files successful.");
 	}
 	
 	public void zipDirectory(File file, File newLocation) throws FileNotFoundException, IOException{
@@ -187,6 +236,7 @@ public class FileLocal implements FileSpec{
         zipOutputStream.closeEntry();
         zipOutputStream.close();
         fileInputStream.close(); 
+        System.out.println("Zip directory successful.");
 	}
 	
 	private static void zipFileForDir(File fileToZip, String fileName, ZipOutputStream zipOut) throws FileNotFoundException, IOException {
@@ -236,7 +286,7 @@ public class FileLocal implements FileSpec{
         zis.closeEntry();
         zis.close();
 
-		
+        System.out.println("Unzip file successful.");
 	}
 	private static File newFileForZip(File destinationDir, ZipEntry zipEntry) throws FileNotFoundException, IOException {
         File destFile = new File(destinationDir, zipEntry.getName());
