@@ -2,8 +2,11 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.Scanner;
 
 import file.FileLocal;
 import spec.FileSpec;
@@ -17,13 +20,22 @@ public class App{
 			System.getProperty("file.separator") +
 			"Test");
 	public static final String TEST_DIR = "src/test/java";
-		
+	public static String imp;
+	private static String outString;
+	
 	public static void main(String[] args) {
 		
-		System.out.println(FileLocal.class.getName());
-		
+		//System.out.println(FileLocal.class.getName());
 		try {
-			Class.forName(FileLocal.class.getName());
+			// Procita i postavi implementaciju.
+			citac();
+			imp = outString;
+		} catch (FileNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		try {
+			Class.forName(imp);
 			FileSpec fs = FileSpecManager.vracaSpec(FileLocal.class.getName());
 			
 			try {
@@ -35,14 +47,21 @@ public class App{
 				fs.createStorage(storage, "t2");
 				fs.createFile(storage + "/t1", "t1.txt");
 				fs.createFile(storage + "/t2", "t2.txt");
-				fs.renameFile(BASE_DIR + System.getProperty("file.separator") + "primer.txt",
-						"novi_primer.txt");
-				fs.uploadFile(BASE_DIR + System.getProperty("file.separator") + "novi_primer.txt",
-						BASE_DIR + System.getProperty("file.separator") + "Dzo");
-				fs.deleteFile(storage + "/t1/" + "t1.txt");
-				fs.excludeExtension("csv");
-				fs.createFile(BASE_DIR, "banned.csv");
-				//fs.uploadFile(BASE_DIR + , newLocation);
+				
+				/*fs.renameFile(BASE_DIR + System.getProperty("file.separator") + "primer.txt",
+						"noviprimer.txt");
+				*/
+				//fs.uploadFile(BASE_DIR + System.getProperty("file.separator") + "primer.txt",
+				//		BASE_DIR + System.getProperty("file.separator") + "Dzo");
+				//fs.deleteFile(storage + "/t1/" + "t1.txt");
+				//fs.excludeExtension(".csv");
+				//fs.createFile(BASE_DIR, "banned.csv");
+				//fs.uploadFile(BASE_DIR + "/banned.csv", storage);
+				/*
+				File zip = new File(storage + "/t1/t1.txt");
+				File zipDir = new File(BASE_DIR);
+				fs.zipFile(zip, zipDir);
+				*/
 				
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -83,5 +102,16 @@ public class App{
 				System.getProperty("file.separator") +
 				"Test");
 		*/
+	}
+	
+	private static void citac() throws FileNotFoundException {
+		Scanner in = new Scanner(new FileReader("configuration.txt"));
+		StringBuilder sb = new StringBuilder();
+		//while(in.hasNext()) { // uzima samo prvu liniju (treba da bude file.FileLocal ili file.FileRemote)
+		    sb.append(in.next());
+		//}
+		in.close();
+		outString = sb.toString();
+		//System.out.println(outString);
 	}
 }

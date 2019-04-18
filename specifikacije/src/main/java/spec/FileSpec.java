@@ -7,10 +7,7 @@ import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 
 public interface FileSpec {
-	/**
-	 * Ubaciti find(search) , za exclude ekstenzija,  
-	 * metode moraju biti univerzalne , da se koriste i za LOKAL i za REMOTE.
-	 */
+
 		/**
 		 * Omogucava pokretanje programa.
 		 */

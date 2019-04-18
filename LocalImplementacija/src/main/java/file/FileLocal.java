@@ -76,6 +76,7 @@ public class FileLocal implements FileSpec{
 		 *  ukoliko destinacija ne postoji napravice je.
 		 */
 		String ekstenzija = path.substring(path.lastIndexOf("."));
+		System.out.println(ekstenzija);
 		if(!bannedExtensions.contains(ekstenzija)) {
 			FileUtils.moveFileToDirectory(
 					FileUtils.getFile(path), 
@@ -140,11 +141,21 @@ public class FileLocal implements FileSpec{
 	}
 	
 	public void renameFile(String path, String newName) throws NoSuchFileException, FileNotFoundException, IOException {
-		FileUtils.moveFileToDirectory(
-				FileUtils.getFile(path), 
-				FileUtils.getFile(path.substring(0, path.lastIndexOf("/")) + newName),
-				true);
-		System.out.println("Rename file successful.");
+
+		File file1 = new File(path);
+		File file2 = new File(path.substring(0, path.lastIndexOf(System.getProperty("file.separator"))) + 
+				System.getProperty("file.separator") + newName);
+		
+		// System.out.println(file1 + "-" + file2);
+		
+		boolean success = file1.renameTo(file2);
+
+		if (!success) {
+		   // File was not successfully renamed
+			System.out.println("Rename file WAS NOT successful.");
+		}else {
+			System.out.println("Rename file successful.");
+		}
 	}
 	
 	public void createStorage(String path, String name) {
