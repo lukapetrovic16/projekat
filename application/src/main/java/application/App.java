@@ -24,6 +24,7 @@ public class App{
 			"Desktop" + 
 			System.getProperty("file.separator") +
 			"Test");
+	public static final String CONFIG_DIR = "C:/Users/Djordje/git/projekat/application/configuration.txt";  // i know :(
 	public static final String TEST_DIR = "src/test/java";
 	public static String imp; //= FileLocal.class.getName();
 	private static String outString;
@@ -110,7 +111,8 @@ public class App{
 	}
 	
 	private static void citac() throws FileNotFoundException {
-		Scanner in = new Scanner(new FileReader("configuration.txt"));
+		
+		Scanner in = new Scanner(new FileReader(CONFIG_DIR));
 		StringBuilder sb = new StringBuilder();
 		//while(in.hasNext()) { // uzima samo prvu liniju (treba da bude file.FileLocal ili file.FileRemote)
 		    sb.append(in.next());
