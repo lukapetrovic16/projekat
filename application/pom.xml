@@ -10,7 +10,6 @@
 	  		<version>0.0.1-SNAPSHOT</version>
 	  	</dependency>
 	</dependencies>
-	
 	<build>
 		<plugins>
 			<plugin>
@@ -24,7 +23,7 @@
 						<configuration>
 							<classifier>spring-boot</classifier>
 							<mainClass>
-								main.App
+								application.App
 							</mainClass>
 						</configuration>
 					</execution>

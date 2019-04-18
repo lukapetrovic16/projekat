@@ -20,8 +20,9 @@ import spec.FileSpecManager;
 
 
 /**
- * Omogucava lokalnu implementaciju, koristi interfejs iz ko-projekta specifikacije, kog ima u depencency.
- * ???????????? moram jos da ispisem ovde..
+ * Omogucava lokalnu implementaciju, 
+ * koristi interfejs iz ko-projekta specifikacije,
+ * kog ima u depencency.
  * 
  * @author Djordje
  *
