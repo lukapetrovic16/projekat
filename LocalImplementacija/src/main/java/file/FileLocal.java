@@ -109,12 +109,15 @@ public class FileLocal implements FileSpec{
 		// TODO Auto-generated method stub
 		// Kreira novi folder sa datim imenom na datoj putanji.
 		File newFolder = new File(path, name);
-		newFolder.mkdirs();
+		newFolder.mkdir();  // mkdir ili mkdirs, not sure yet koji zelim
 	}
 	
 	public void createFile(String path, String name) throws FileNotFoundException, IOException {
 		File newFile = new File(path, name);
 		newFile.createNewFile();
+		if(newFile.isFile()){
+			System.out.println("uspelo");
+		}
 	}
 	
 	public void find(String path, FilenameFilter filter) {
