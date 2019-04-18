@@ -24,7 +24,15 @@ public class App{
 			"Desktop" + 
 			System.getProperty("file.separator") +
 			"Test");
-	public static final String CONFIG_DIR = "C:/Users/Djordje/git/projekat/application/configuration.txt";  // i know :(
+	public static final String CONFIG_DIR = System.getProperty("user.home")+
+			System.getProperty("file.separator") +
+			"git" + 
+			System.getProperty("file.separator") +
+			"projekat"+
+			System.getProperty("file.separator") +
+			"application" + 
+			System.getProperty("file.separator") +
+			"configuration.txt";
 	public static final String TEST_DIR = "src/test/java";
 	public static String imp; //= FileLocal.class.getName();
 	private static String outString;
