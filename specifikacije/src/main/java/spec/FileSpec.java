@@ -6,6 +6,10 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 
+import com.dropbox.core.DbxException;
+import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.files.UploadErrorException;
+
 public interface FileSpec {
 
 		/**
@@ -26,7 +30,15 @@ public interface FileSpec {
 		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
 		 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
 		 */
-		void uploadFile (String path, String newLocation) throws NoSuchFileException, IOException;
+		void uploadFile (String path, String newLocation) throws DbxException, IOException, UploadErrorException;
+		/**
+		 * Omogucava postavljanje zeljenog fajla na remote storage odnosno dropbox.
+		 * @param dropPath Na koju putanju u dropboxu se cuva fajl
+		 * @param file Fajl koju se uploaduje
+		 * @param client Korisnik na ciji se dropbox skladisti fajl
+		 * @throws IOException Obavestava ukoliko se desi exception oblika I/O.
+		 */
+		void uploadFile (String dropPath, File file, DbxClientV2 client) throws IOException;
 		//void uploadFile (String file, String path, String name, String extension);  // polimorfizam   overload, override
 		/**
 		 * Omogucava postavljanje zadatih fajlova na zadatu destinaciju. 
@@ -48,6 +60,17 @@ public interface FileSpec {
 		 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
 		 */
 		void downloadFile (String path, String storagePath) throws NoSuchFileException, IOException;
+		/**
+		 * Omogucava skidanje zadatog fajla na zadatu destinaciju. 
+		 * 
+		 * @param path Putanja na kojoj zelimo da se skine fajl
+		 * @param client Korisnik na ciji se dropbox skladisti fajl
+		 * @param storagePath Putanja na kojoj se nalazi fajl koji hocemo da skinemo
+		 * @throws IOException Hvata exceptione u vezi I/O.
+		 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+		 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
+		 */
+		void downloadFile (String path, DbxClientV2 client, String storagePath) throws NoSuchFileException, IOException;
 		/**
 		 * Omogucava skidanje zadatih fajlova na zadatu destinaciju. 
 		 * 

@@ -13,6 +13,9 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 import javax.naming.InitialContext;
 import org.apache.commons.io.FileUtils;
+
+import com.dropbox.core.v2.DbxClientV2;
+
 import spec.FileSpec;
 import spec.FileSpecManager;
 
@@ -409,4 +412,16 @@ public class FileLocal implements FileSpec {
         
         return destFile;
     }
+
+	public void uploadFile(String dropPath, File file, DbxClientV2 client) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void downloadFile(String path, DbxClientV2 client, String storagePath)
+			throws NoSuchFileException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
