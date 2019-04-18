@@ -67,8 +67,12 @@ public class FileLocal implements FileSpec{
 		System.out.println("Uspesan test.");
 	}
 	/**
-	 * Implementacija funkcije za postavljanje zadatih fajlova na zadate lokacije u lokalnom skladistu.
-	 * @param path Putanja u lokalnom skladistu na koju zelimo da otpremimo fajl
+	 * Upload file funkcija omogucava da se zeljeni fajl postavi na neku lokaciju u lokalnom skladistu.
+	 * @param path Putanja do fajla koji se nalazi u skladistu
+	 * @param newLocation Nova putanja na lokalnom repozitorijumu na koju zelimo da postavimo fajl.
+	 * @throws NoSuchFileException Ovaj exception se javlja kada se pokusa da se postavi fajl koji ne postoji na lokaciji u zadatom skladistu.
+	 * @throws IOException Signalizira da se desio neki I/O exception
+	 * @throws FileNotFoundException Ovaj exception se javlja ukoliko je pronalazenje fajla na zadatoj lokaciji nemoguce ili ukoliko postoji a ne moze da se pristupi istom.
 	 * 
 	 */
 	public void uploadFile(String path, String newLocation) throws NoSuchFileException, FileNotFoundException, IOException {
@@ -87,7 +91,15 @@ public class FileLocal implements FileSpec{
 			throw new IllegalArgumentException();
 		System.out.println("Upload file successful.");
 	}
-
+	/**
+	 * Ova funkcija omogucava da se na zadatu putanju u lokalnom skladistu postavi vise fajlova
+	 * @param files Niz fajlova koje zelimo da postavimo na lokalno skladiste
+	 * @param newLocation Putanja do lokalnog skladista na kojoj zelimo da postavimo listu fajlova
+	 * @throws NoSuchFileException Ovaj exception se javlja kada se pokusa da se postavi fajl koji ne postoji na lokaciji u zadatom skladistu.
+	 * @throws IOException Signalizira da se desio neki I/O exception
+	 * @throws FileNotFoundException Ovaj exception se javlja ukoliko je pronalazenje fajla na zadatoj lokaciji nemoguce ili ukoliko postoji a ne moze da se pristupi istom.
+	 * 
+	 */
 	public void uploadMultiFiles(String[] files, String newLocation) throws NoSuchFileException, FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
 		for(String file : files) {
@@ -102,7 +114,15 @@ public class FileLocal implements FileSpec{
 		}
 		System.out.println("Upload files successful.");
 	}
-
+	/**
+	 * Ova funkcija omogucava da se sa zadate lokacije na lokalnom skladistu skine fajl na novoj zadatoj lokaciji
+	 * @param path Putanja do fajla koji se nalazi na lokalnom skladistu koji zelimo da skinemo
+	 * @param storagePath Putanja na koju zelimo da uskladistimo taj isti fajl
+	 * @throws NoSuchFileException Ovaj exception se javlja kada se pokusa da se postavi fajl koji ne postoji na lokaciji u zadatom skladistu.
+	 * @throws IOException Signalizira da se desio neki I/O exception
+	 * @throws FileNotFoundException Ovaj exception se javlja ukoliko je pronalazenje fajla na zadatoj lokaciji nemoguce ili ukoliko postoji a ne moze da se pristupi istom.
+	 * 
+	 */
 	public void downloadFile(String path, String storagePath) throws NoSuchFileException, FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
 		FileUtils.moveFileToDirectory(
@@ -111,7 +131,15 @@ public class FileLocal implements FileSpec{
 				true);
 		System.out.println("Download file successful.");
 	}
-
+	/**
+	 * Ova funkcija omogucava da se sa zadatih vise lokacija na lokalnom skladistu skine vise fajlova.
+	 * @param path Putanja na koju zelimo da uskladistimo sve fajlove sa skladista
+	 * @param storagePath Lista putanja do fajlova koji se nalaze na lok. skladistu koje zelimo da skinemo
+	 * @throws NoSuchFileException Ovaj exception se javlja kada se pokusa da se postavi fajl koji ne postoji na lokaciji u zadatom skladistu.
+	 * @throws IOException Signalizira da se desio neki I/O exception
+	 * @throws FileNotFoundException Ovaj exception se javlja ukoliko je pronalazenje fajla na zadatoj lokaciji nemoguce ili ukoliko postoji a ne moze da se pristupi istom.
+	 * 
+	 */
 	public void downloadMultiFile(String path, String[] storagePath) throws NoSuchFileException, FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
 		for(String file : storagePath) {
@@ -122,13 +150,27 @@ public class FileLocal implements FileSpec{
 		}
 		System.out.println("Download files successful.");
 	}
-	
+	/**
+	 * Ova funkcija omogucava da se izbrise zeljeni fajl sa lokalnog skladista
+	 * @param path Putanja do fajla koji zelimo da izbrisemo
+	 * @throws NoSuchFileException Ovaj exception se javlja kada se pokusa da se postavi fajl koji ne postoji na lokaciji u zadatom skladistu.
+	 * @throws IOException Signalizira da se desio neki I/O exception
+	 * @throws FileNotFoundException Ovaj exception se javlja ukoliko je pronalazenje fajla na zadatoj lokaciji nemoguce ili ukoliko postoji a ne moze da se pristupi istom.
+	 * 
+	 */
 	public void deleteFile(String path) throws NoSuchFileException, FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
 		new File(path).delete();
 		System.out.println("Delete file successful.");
 	}
-
+	/**
+	 * Ova funkcija omogucava da se izbrise vise fajlova sa lokalnog skladista
+	 * @param path Lista putanja do fajlova koje zelimo da izbrisemo
+	 * @throws NoSuchFileException Ovaj exception se javlja kada se pokusa da se postavi fajl koji ne postoji na lokaciji u zadatom skladistu.
+	 * @throws IOException Signalizira da se desio neki I/O exception
+	 * @throws FileNotFoundException Ovaj exception se javlja ukoliko je pronalazenje fajla na zadatoj lokaciji nemoguce ili ukoliko postoji a ne moze da se pristupi istom.
+	 * 
+	 */
 	public void deleteMultiFiles(String[] path) throws NoSuchFileException, FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
 		/** 
@@ -140,7 +182,15 @@ public class FileLocal implements FileSpec{
 		}
 		System.out.println("Delete files successful.");
 	}
-	
+	/**
+	 * Ova funkcija omogucava da se izmeni ime fajla u skladistu
+	 * @param path Putanja do fajla koji zelimo da preimenujemo
+	 * @param newName Novo ime koje dajemo fajlu
+	 * @throws NoSuchFileException Ovaj exception se javlja kada se pokusa da se postavi fajl koji ne postoji na lokaciji u zadatom skladistu.
+	 * @throws IOException Signalizira da se desio neki I/O exception
+	 * @throws FileNotFoundException Ovaj exception se javlja ukoliko je pronalazenje fajla na zadatoj lokaciji nemoguce ili ukoliko postoji a ne moze da se pristupi istom.
+	 * 
+	 */
 	public void renameFile(String path, String newName) throws NoSuchFileException, FileNotFoundException, IOException {
 
 		File file1 = new File(path);
@@ -158,7 +208,12 @@ public class FileLocal implements FileSpec{
 			System.out.println("Rename file successful.");
 		}
 	}
-	
+	/**
+	 * Ova funkcija omogucava lokalno skladiste
+	 * @param path Putanja na kojoj zelimo da kreiramo novo skladiste
+	 * @param name Naziv koji dajemo zadatom skladistu pre nego sto ga kreiramo
+	 * 
+	 */
 	public void createStorage(String path, String name) {
 		// TODO Auto-generated method stub
 		// Kreira novi folder sa datim imenom na datoj putanji.
@@ -168,7 +223,14 @@ public class FileLocal implements FileSpec{
 			System.out.println("Create storage successful.");
 		}
 	}
-	
+	/**
+	 * Ova funkcija omogucava da se kreira novi fajl na zadatom skladistu
+	 * @param path Putanja na kojoj cemo kreirati zeljeni fajl u skladistu
+	 * @param name Ime koje dodeljujemo fajlu koji kreiramo
+	 * @throws IOException Signalizira da se desio neki I/O exception
+	 * @throws FileNotFoundException Ovaj exception se javlja ukoliko je pronalazenje fajla na zadatoj lokaciji nemoguce ili ukoliko postoji a ne moze da se pristupi istom.
+	 * 
+	 */
 	public void createFile(String path, String name) throws FileNotFoundException, IOException {
 		File newFile = new File(path, name);
 		newFile.createNewFile();
@@ -176,7 +238,12 @@ public class FileLocal implements FileSpec{
 			System.out.println("Create file successful.");
 		}
 	}
-	
+	/**
+	 * Ova funkcija omogucava da pronadjemo elemente u lokalnom skladistu
+	 * @param path Putanja na kome se pretrazuje fajl
+	 * @param filter Filter po kome se pretrazuju fajlovi
+	 * 
+	 */
 	public void find(String path, FilenameFilter filter) {
 		File directory = new File(path);
 		if(directory.isDirectory()) {
@@ -197,7 +264,11 @@ public class FileLocal implements FileSpec{
 		}
 		System.out.println("Banned extensions successful.");
 	}
-	
+	/**
+	 * Ova funkcija zabranjuje koriscenje odredjenih ekstenzija
+	 * @param extension Ekstenzija koju smo naveli kao neprihvatajucu
+	 *
+	 */
 	public void zipFile(File file, File newLocation) throws FileNotFoundException, IOException {
         ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(newLocation));
         zipOutputStream.putNextEntry(new ZipEntry(file.getName()));
@@ -215,7 +286,13 @@ public class FileLocal implements FileSpec{
         zipOutputStream.close();
         System.out.println("Zip file successful.");
 	}
-
+	/**
+	 * Ova funkcija omogucava da se zipuje zadati fajl
+	 * @param file Fajl koji biramo da bude zipovan
+	 * @param newLocation Nova lokacija na koju zelimo da sacuvamo zipovani fajl
+	 * @throws IOException Signalizira da se desio neki I/O exception
+	 *
+	 */
 	public void zipMultiFiles(File[] sourceFile, File newLocation) throws FileNotFoundException, IOException{
 		ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(newLocation));
         for(File file : sourceFile) {
@@ -236,7 +313,13 @@ public class FileLocal implements FileSpec{
         zipOutputStream.close();
         System.out.println("Zip files successful.");
 	}
-	
+	/**
+	 * Ova funkcija omogucava da se zipuje veci broj fajlova
+	 * @param sourceFile Svi fajlovi koji se zipuju
+	 * @param newLocation Putanja ka direktorijumu u koji zipujemo sa sve nazivom zipa.
+	 * @throws IOException Hvata exceptione u vezi I/O.
+	 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+	 */
 	public void zipDirectory(File file, File newLocation) throws FileNotFoundException, IOException{
 		
 		ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(newLocation));
@@ -250,7 +333,14 @@ public class FileLocal implements FileSpec{
         fileInputStream.close(); 
         System.out.println("Zip directory successful.");
 	}
-	
+	/**
+	 * Omogucava arhiviranje direktorijuma u .zip format.
+	 * 
+	 * @param file Direktorijum koji se zipuje
+	 * @param newLocation Putanja ka direktorijumu u koji zipujemo sa sve nazivom zipa.
+	 * @throws IOException Hvata exceptione u vezi I/O.
+	 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+	 */
 	private static void zipFileForDir(File fileToZip, String fileName, ZipOutputStream zipOut) throws FileNotFoundException, IOException {
 		if (fileToZip.isHidden()) {
             return;
@@ -279,7 +369,14 @@ public class FileLocal implements FileSpec{
         }
         fis.close();
 	}
-	
+	/**
+	 * Omogucava ekstraktovanje fajlova iz .zip formata.
+	 * 
+	 * @param file Zip fajl koji se unzipuje.
+	 * @param newLocation Putanja ka direktorijumu u koji unzipujemo
+	 * @throws IOException Hvata exceptione u vezi I/O.
+	 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
+	 */
 	public void unZip(File file, File newLocation) throws FileNotFoundException, IOException {
 
         byte[] buffer = new byte[1024];
