@@ -11,28 +11,25 @@ import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
-
 import javax.naming.InitialContext;
-
 import org.apache.commons.io.FileUtils;
 import spec.FileSpec;
 import spec.FileSpecManager;
 
 
 /**
- * Omogucava lokalnu implementaciju, koristi interfejs iz ko-projekta specifikacije, kog ima u depencency.
- * ???????????? moram jos da ispisem ovde..
  * 
  * @author Djordje
+ * Omogucava lokalnu implementaciju, koristi interfejs {@link FileSpec}, koji ima u depencency-ju i koji sluzi sa rad sa fajlovima.
+ * 
  *
  */
 public class FileLocal implements FileSpec{
-	
+	/**
+	 * 
+	 */
 	public static final String BASE_DIR = (System.getProperty("user.home") + 
-			System.getProperty("file.separator") +
-			"Desktop" + 
-			System.getProperty("file.separator") +
-			"Test");
+			System.getProperty("file.separator") + "Desktop" + System.getProperty("file.separator") + "Test");
 	private static FileLocal init;
 
 	static {
@@ -64,13 +61,17 @@ public class FileLocal implements FileSpec{
 		}*/
 	}
 	
+	@SuppressWarnings("unused")
 	private void pokreniTest() throws FileNotFoundException, IOException {
 		createFile(BASE_DIR, "t1.txt");
 		System.out.println("Uspesan test.");
 	}
-	
+	/**
+	 * Implementacija funkcije za postavljanje zadatih fajlova na zadate lokacije u lokalnom skladistu.
+	 * @param path Putanja u lokalnom skladistu na koju zelimo da otpremimo fajl
+	 * 
+	 */
 	public void uploadFile(String path, String newLocation) throws NoSuchFileException, FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
 		/**
 		 *  Pomocu Commons IO prebacujemo fajl na novu destinaciju,
 		 *  ukoliko destinacija ne postoji napravice je.
