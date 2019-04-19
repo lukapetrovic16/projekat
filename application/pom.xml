@@ -11,6 +11,11 @@
 	  		<artifactId>LocalImplementacija</artifactId>
 	  		<version>0.0.1-SNAPSHOT</version>
 	  	</dependency>
+	  	<dependency>
+	  		<groupId>raf.projekat</groupId>
+	  		<artifactId>RemoteImplementacija</artifactId>
+	  		<version>0.0.1-SNAPSHOT</version>
+	  	</dependency>
 	</dependencies>
 	<build>
 		<plugins>
