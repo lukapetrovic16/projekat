@@ -259,7 +259,11 @@ public class FileLocal implements FileSpec {
 		}
 		System.out.println("Find file successful.");
 	}
-	
+	/**
+	 * Ova funkcija zabranjuje koriscenje odredjenih ekstenzija
+	 * @param extension Ekstenzija koju smo naveli kao neprihvatajucu
+	 *
+	 */
 	ArrayList<String> bannedExtensions = new ArrayList<String>();
 	public void excludeExtension(String extension) {
 		if(!bannedExtensions.contains(extension)) {
@@ -268,8 +272,10 @@ public class FileLocal implements FileSpec {
 		System.out.println("Banned extensions successful.");
 	}
 	/**
-	 * Ova funkcija zabranjuje koriscenje odredjenih ekstenzija
-	 * @param extension Ekstenzija koju smo naveli kao neprihvatajucu
+	 * Ova funkcija omogucava da se zipuje zadati fajl
+	 * @param file Fajl koji biramo da bude zipovan
+	 * @param newLocation Nova lokacija na koju zelimo da sacuvamo zipovani fajl
+	 * @throws IOException Signalizira da se desio neki I/O exception
 	 *
 	 */
 	public void zipFile(File file, File newLocation) throws FileNotFoundException, IOException {
@@ -290,11 +296,11 @@ public class FileLocal implements FileSpec {
         System.out.println("Zip file successful.");
 	}
 	/**
-	 * Ova funkcija omogucava da se zipuje zadati fajl
-	 * @param file Fajl koji biramo da bude zipovan
-	 * @param newLocation Nova lokacija na koju zelimo da sacuvamo zipovani fajl
-	 * @throws IOException Signalizira da se desio neki I/O exception
-	 *
+	 * Ova funkcija omogucava da se zipuje veci broj fajlova
+	 * @param sourceFile Svi fajlovi koji se zipuju
+	 * @param newLocation Putanja ka direktorijumu u koji zipujemo sa sve nazivom zipa.
+	 * @throws IOException Hvata exceptione u vezi I/O.
+	 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
 	 */
 	public void zipMultiFiles(File[] sourceFile, File newLocation) throws FileNotFoundException, IOException{
 		ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(newLocation));
@@ -317,8 +323,9 @@ public class FileLocal implements FileSpec {
         System.out.println("Zip files successful.");
 	}
 	/**
-	 * Ova funkcija omogucava da se zipuje veci broj fajlova
-	 * @param sourceFile Svi fajlovi koji se zipuju
+	 * Omogucava arhiviranje direktorijuma u .zip format.
+	 * 
+	 * @param file Direktorijum koji se zipuje
 	 * @param newLocation Putanja ka direktorijumu u koji zipujemo sa sve nazivom zipa.
 	 * @throws IOException Hvata exceptione u vezi I/O.
 	 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
@@ -336,14 +343,7 @@ public class FileLocal implements FileSpec {
         fileInputStream.close(); 
         System.out.println("Zip directory successful.");
 	}
-	/**
-	 * Omogucava arhiviranje direktorijuma u .zip format.
-	 * 
-	 * @param file Direktorijum koji se zipuje
-	 * @param newLocation Putanja ka direktorijumu u koji zipujemo sa sve nazivom zipa.
-	 * @throws IOException Hvata exceptione u vezi I/O.
-	 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
-	 */
+
 	private static void zipFileForDir(File fileToZip, String fileName, ZipOutputStream zipOut) throws FileNotFoundException, IOException {
 		if (fileToZip.isHidden()) {
             return;
