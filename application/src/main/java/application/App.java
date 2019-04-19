@@ -7,6 +7,10 @@ import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import com.dropbox.core.DbxException;
+import com.dropbox.core.v2.files.UploadErrorException;
+
 import file.FileLocal;
 import spec.FileSpec;
 import spec.FileSpecManager;
@@ -64,16 +68,20 @@ public class App {
 				fs.createStorage(storage, "t2");
 				fs.createFile(storage + "/t1", "t1.txt");
 				fs.createFile(storage + "/t2", "t2.txt");
-				
-				/*fs.renameFile(BASE_DIR + System.getProperty("file.separator") + "primer.txt",
+				/*
+				fs.renameFile(BASE_DIR + System.getProperty("file.separator") + "primer.txt",
 						"noviprimer.txt");
 				*/
-				//fs.uploadFile(BASE_DIR + System.getProperty("file.separator") + "primer.txt",
-				//		BASE_DIR + System.getProperty("file.separator") + "Dzo");
-				//fs.deleteFile(storage + "/t1/" + "t1.txt");
-				//fs.excludeExtension(".csv");
-				//fs.createFile(BASE_DIR, "banned.csv");
-				//fs.uploadFile(BASE_DIR + "/banned.csv", storage);
+				/*
+				fs.uploadFile(BASE_DIR + System.getProperty("file.separator") + "primer.txt",
+						BASE_DIR + System.getProperty("file.separator") + "Dzo");
+				*/
+				/*
+				fs.deleteFile(storage + "/t1/" + "t1.txt");
+				fs.excludeExtension(".csv");
+				fs.createFile(BASE_DIR, "banned.csv");
+				fs.uploadFile(BASE_DIR + "/banned.csv", storage);
+				*/
 				/*
 				File zip = new File(storage + "/t1/t1.txt");
 				File zipDir = new File(BASE_DIR);

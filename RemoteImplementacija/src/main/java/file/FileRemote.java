@@ -60,44 +60,7 @@ public class FileRemote implements FileSpec {
 	 * @throws FileNotFoundException Javlja exception ukoliko fajl nije pronadjen ili mu se ne moze pristupiti.
 	 * @throws IOException Obavestava ukoliko se desi exception oblika I/O.
 	 */
-	@Override
-	public void uploadFile(String dropPath, File file, DbxClientV2 client) throws FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
-		try (InputStream in = new FileInputStream(file)) {
-            ProgressListener progressListener = l -> printProgress(l, file.length());
 
-            FileMetadata metadata = client.files().uploadBuilder(dropPath)
-                .withMode(WriteMode.ADD)
-                .withClientModified(new Date(file.lastModified()))
-                .uploadAndFinish(in, progressListener);
-
-            System.out.println(metadata.toStringMultiline());
-        } catch (UploadErrorException ex) {
-            System.err.println("Error uploading to Dropbox: " + ex.getMessage());
-            System.exit(1);
-        } catch (DbxException ex) {
-            System.err.println("Error uploading to Dropbox: " + ex.getMessage());
-            System.exit(1);
-        } catch (IOException ex) {
-            System.err.println("Error reading from file \"" + file + "\": " + ex.getMessage());
-            System.exit(1);
-        }
-		
-	}
-	/**
-	 * Upload file funkcija omogucava da se zeljeni fajl postavi na dropbox skladiste odnosno remote storage.
-	 * @param path Putanja do fajla koji se nalazi u skladistu
-	 * @param newLocation Putanja do lokacije na dropboxu gde zelimo da postavimo fajl
-	 * @throws NoSuchFileException Ovaj exception se javlja kada se pokusa da se postavi fajl koji ne postoji na lokaciji u zadatom skladistu.
-	 * @throws IOException Signalizira da se desio neki I/O exception
-	 * @throws FileNotFoundException Ovaj exception se javlja ukoliko je pronalazenje fajla na zadatoj lokaciji nemoguce ili ukoliko postoji a ne moze da se pristupi istom.
-	 * 
-	 */
-	@Override
-	public void uploadFile(String path, String newLocation) throws NoSuchFileException, IOException, FileNotFoundException {
-		// TODO Auto-generated method stub
-		
-	}
 	/**
 	 * Ova funkcija omogucava da se na zadatu putanju u dropboxu postavi vise fajlova
 	 * @param files Niz fajlova koje zelimo da postavimo na dropbox
@@ -122,9 +85,19 @@ public class FileRemote implements FileSpec {
 	 * @throws FileNotFoundException Signalizira da je fajl sa datom adresom nije pronadjen.
 	 * @throws NoSuchFileException Izbacuje exception ukoliko fajl koji zelimo da koristimo ne postoji.
 	 */
+	
+	/**
+	 * Ova funkcija omogucava da se sa zadate lokacije na dropboxu skine fajl na novoj zadatoj lokaciji
+	 * @param path Putanja do fajla koji se nalazi na dropboxu koji zelimo da skinemo
+	 * @param storagePath Putanja na koju zelimo da uskladistimo taj isti fajl
+	 * @throws NoSuchFileException Ovaj exception se javlja kada se pokusa da se postavi fajl koji ne postoji na lokaciji u zadatom skladistu.
+	 * @throws IOException Signalizira da se desio neki I/O exception
+	 * @throws FileNotFoundException Ovaj exception se javlja ukoliko je pronalazenje fajla na zadatoj lokaciji nemoguce ili ukoliko postoji a ne moze da se pristupi istom.
+	 * 
+	 */
+	DbxClientV2 client;
 	@Override
-	public void downloadFile(String path, DbxClientV2 client, String storagePath)
-			throws NoSuchFileException, IOException {
+	public void downloadFile(String path, String storagePath) throws NoSuchFileException, IOException, FileNotFoundException {
 		// TODO Auto-generated method stub
 		try
         {
@@ -150,21 +123,7 @@ public class FileRemote implements FileSpec {
             //error downloading file
             JOptionPane.showMessageDialog(null, "Unable to download file to local system\n Error: " + e);
         }
-		
-	}
-	/**
-	 * Ova funkcija omogucava da se sa zadate lokacije na dropboxu skine fajl na novoj zadatoj lokaciji
-	 * @param path Putanja do fajla koji se nalazi na dropboxu koji zelimo da skinemo
-	 * @param storagePath Putanja na koju zelimo da uskladistimo taj isti fajl
-	 * @throws NoSuchFileException Ovaj exception se javlja kada se pokusa da se postavi fajl koji ne postoji na lokaciji u zadatom skladistu.
-	 * @throws IOException Signalizira da se desio neki I/O exception
-	 * @throws FileNotFoundException Ovaj exception se javlja ukoliko je pronalazenje fajla na zadatoj lokaciji nemoguce ili ukoliko postoji a ne moze da se pristupi istom.
-	 * 
-	 */
-	@Override
-	public void downloadFile(String path, String storagePath) throws NoSuchFileException, IOException, FileNotFoundException {
-		// TODO Auto-generated method stub
-		
+	
 		
 	}
 	/**
@@ -318,7 +277,28 @@ public class FileRemote implements FileSpec {
 		
 	}
 
-	
-	
-	
+	@Override
+	public void uploadFile(String path, String newLocation) throws  IOException {
+		// TODO Auto-generated method stub
+				File file = new File(newLocation);
+				try (InputStream in = new FileInputStream(file)) {
+		            ProgressListener progressListener = l -> printProgress(l, file.length());
+
+		            FileMetadata metadata = client.files().uploadBuilder(path)
+		                .withMode(WriteMode.ADD)
+		                .withClientModified(new Date(file.lastModified()))
+		                .uploadAndFinish(in, progressListener);
+
+		            System.out.println(metadata.toStringMultiline());
+		        } catch (UploadErrorException ex) {
+		            System.err.println("Error uploading to Dropbox: " + ex.getMessage());
+		            System.exit(1);
+		        } catch (DbxException ex) {
+		            System.err.println("Error uploading to Dropbox: " + ex.getMessage());
+		            System.exit(1);
+		        } catch (IOException ex) {
+		            System.err.println("Error reading from file \"" + file + "\": " + ex.getMessage());
+		            System.exit(1);
+		        }
+	}
 }
